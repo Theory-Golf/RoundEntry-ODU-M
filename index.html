@@ -783,7 +783,7 @@
         // ============================================================
         // TODO: Replace with your deployed Apps Script URL
         // See apps-script.gs for instructions on creating and deploying the script
-        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby3KyOVbKYGy1WiFHxBXB_F4vnIqsplvcFk_y-elvqDFtqTQXeQ61WJ1w98vnp5dvhX/exec';
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyVNlxvnZg2ii7ouoV7Gjh6Kdkx5oG8mqYv5Na7faqqUfqlcUB16mRQTn3vk0QTKMIW/exec';
 
         
         // ============================================================
@@ -990,7 +990,7 @@
                 setFocusTarget('startDistance');
             };
 
-            const addShot = () => {
+            const addShot = (skipPuttValidation = false) => {
                 // Debounce to prevent double-submission
                 if (isProcessingShot) return;
                 setIsProcessingShot(true);
@@ -1011,11 +1011,12 @@
                 }
 
                 // Validate first putt result required for putts over 10 feet on green
+                // Skip validation when auto-submitting from Short/Long buttons (user already selected)
                 const isFirstPuttOver10ft = 
                     currentShot.startLie === 'Green' && 
                     parseFloat(currentShot.startDistance) > 10;
                 
-                if (isFirstPuttOver10ft && !currentShot.puttResult) {
+                if (isFirstPuttOver10ft && !skipPuttValidation && !currentShot.puttResult) {
                     alert('Please select Short or Long for your first putt');
                     setIsProcessingShot(false);
                     return;
@@ -1544,14 +1545,14 @@
                                                 className={`putt-result-btn ${currentShot.puttResult === 'Short' ? 'selected' : ''}`}
                                                 onClick={() => {
                                                     setCurrentShot({...currentShot, puttResult: currentShot.puttResult === 'Short' ? '' : 'Short'});
-                                                    // Auto-submit after selecting
-                                                    setTimeout(() => addShot(), 50);
+                                                    // Auto-submit after selecting - skip validation since user already selected
+                                                    setTimeout(() => addShot(true), 50);
                                                 }}
                                                 onKeyDown={(e) => {
                                                     if (e.key === 'Enter') {
                                                         e.preventDefault();
                                                         setCurrentShot({...currentShot, puttResult: currentShot.puttResult === 'Short' ? '' : 'Short'});
-                                                        setTimeout(() => addShot(), 50);
+                                                        setTimeout(() => addShot(true), 50);
                                                     }
                                                 }}
                                             >
@@ -1562,14 +1563,14 @@
                                                 className={`putt-result-btn ${currentShot.puttResult === 'Long' ? 'selected' : ''}`}
                                                 onClick={() => {
                                                     setCurrentShot({...currentShot, puttResult: currentShot.puttResult === 'Long' ? '' : 'Long'});
-                                                    // Auto-submit after selecting
-                                                    setTimeout(() => addShot(), 50);
+                                                    // Auto-submit after selecting - skip validation since user already selected
+                                                    setTimeout(() => addShot(true), 50);
                                                 }}
                                                 onKeyDown={(e) => {
                                                     if (e.key === 'Enter') {
                                                         e.preventDefault();
                                                         setCurrentShot({...currentShot, puttResult: currentShot.puttResult === 'Long' ? '' : 'Long'});
-                                                        setTimeout(() => addShot(), 50);
+                                                        setTimeout(() => addShot(true), 50);
                                                     }
                                                 }}
                                             >
