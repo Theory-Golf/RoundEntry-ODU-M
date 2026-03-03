@@ -7,10 +7,44 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <!-- Primary CDN sources -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js" onerror="tryFallback(this, 'React', 'https://cdn.jsdelivr.net/npm/react@18/umd/react.production.min.js')"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" onerror="tryFallback(this, 'ReactDOM', 'https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.production.min.js')"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js" onerror="tryFallback(this, 'Babel', 'https://cdn.jsdelivr.net/npm/@babel/standalone/babel.min.js')"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js" onerror="tryFallback(this, 'XLSX', 'https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js')"></script>
+    <script>
+        // Track which scripts need loading
+        window.scriptLoadErrors = [];
+        
+        function tryFallback(element, scriptName, fallbackUrl) {
+            console.warn('Primary CDN failed for ' + scriptName + ', trying fallback...');
+            
+            // Try loading from fallback CDN
+            var script = document.createElement('script');
+            script.src = fallbackUrl;
+            script.crossOrigin = element.crossOrigin;
+            script.onload = function() {
+                console.log('Fallback loaded successfully for ' + scriptName);
+            };
+            script.onerror = function() {
+                window.scriptLoadErrors.push(scriptName + ' (both CDNs failed)');
+                console.error('Fallback also failed for ' + scriptName);
+            };
+            document.head.appendChild(script);
+        }
+        
+        // Show error message if scripts fail to load
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                if (window.scriptLoadErrors.length > 0) {
+                    var errorDiv = document.createElement('div');
+                    errorDiv.style.cssText = 'position:fixed;top:0;left:0;right:0;background:#dc2626;color:white;padding:1rem;text-align:center;z-index:9999;font-family:Inter,sans-serif;';
+                    errorDiv.innerHTML = '<strong>Load Failed</strong><br>Failed to load: ' + window.scriptLoadErrors.join(', ') + '<br><small>Check your internet connection or try refreshing the page.</small>';
+                    document.body.insertBefore(errorDiv, document.body.firstChild);
+                }
+            }, 3000);
+        });
+    </script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
@@ -783,7 +817,7 @@
         // ============================================================
         // TODO: Replace with your deployed Apps Script URL
         // See apps-script.gs for instructions on creating and deploying the script
-        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwLQa4UcYU87VlVf-V8IUoC_3NdHF91ATO4iCKRj46kRJmw6A5Q-zhX-ZKL6_lsyA7I/exec'
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyUBLnmKs1v0tClhTSnQDMaST0tu3Xc35SDIsNwfbUOWqZ3EWzcmmDa79GNCZyOShsL/exec'
         
         // ============================================================
         // UTILITY FUNCTIONS
