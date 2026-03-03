@@ -13,7 +13,7 @@
 
 // ===== CONFIGURATION =====
 const SPREADSHEET_ID = '1IngfnPqCz9eP3KTfv5jEhElk7C9ap4WAwCOJQ_i6J_8'; // Your new sheet ID
-const SHEET_NAME = 'Sheet1'; // Change if your sheet has a different name
+const SHEET_NAME = 'Shot Data'; // Change if your sheet has a different name
 
 // ===== DO NOT EDIT BELOW THIS LINE =====
 
