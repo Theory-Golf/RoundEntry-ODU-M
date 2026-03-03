@@ -1737,9 +1737,22 @@
                             )}
                             
                             {step === 'submitted' && (
-                                <div className="success-box">
-                                    ✓ Data submitted to Google Sheets
-                                </div>
+                                <>
+                                    <div className="success-box">
+                                        ✓ Data submitted to Google Sheets
+                                    </div>
+                                    <button className="btn btn-primary" onClick={() => {
+                                        // Reset all round data for a new round
+                                        setHoles(Array.from({ length: 18 }, () => ({ shots: [] })));
+                                        setCurrentHole(1);
+                                        setCurrentShot({ startDistance: '', startLie: 'Tee', endDistance: '', endLie: 'Fairway', penalty: false, didNotHitDriver: false, puttResult: '' });
+                                        setEndLieTouched(false);
+                                        clearLocalStorage();
+                                        setStep('round-info');
+                                    }} style={{marginTop: '1rem'}}>
+                                        Start New Round
+                                    </button>
+                                </>
                             )}
                         </div>
                     </div>
