@@ -12,3 +12,6 @@ https://script.google.com/macros/s/AKfycbydum82VpgH-ZvxXMiZwtFq1nJiZx5vK2mnQSfI2
 
 Updated - Google code
 https://script.google.com/macros/s/AKfycbyVNlxvnZg2ii7ouoV7Gjh6Kdkx5oG8mqYv5Na7faqqUfqlcUB16mRQTn3vk0QTKMIW/exec
+
+Copilot
+https://script.google.com/macros/s/AKfycbwLQa4UcYU87VlVf-V8IUoC_3NdHF91ATO4iCKRj46kRJmw6A5Q-zhX-ZKL6_lsyA7I/exec
