@@ -15,3 +15,6 @@ https://script.google.com/macros/s/AKfycbyVNlxvnZg2ii7ouoV7Gjh6Kdkx5oG8mqYv5Na7f
 
 Copilot
 https://script.google.com/macros/s/AKfycbwLQa4UcYU87VlVf-V8IUoC_3NdHF91ATO4iCKRj46kRJmw6A5Q-zhX-ZKL6_lsyA7I/exec
+
+Spelling Fixes
+https://script.google.com/macros/s/AKfycbyUBLnmKs1v0tClhTSnQDMaST0tu3Xc35SDIsNwfbUOWqZ3EWzcmmDa79GNCZyOShsL/exec
