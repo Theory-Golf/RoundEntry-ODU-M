@@ -783,8 +783,7 @@
         // ============================================================
         // TODO: Replace with your deployed Apps Script URL
         // See apps-script.gs for instructions on creating and deploying the script
-        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyVNlxvnZg2ii7ouoV7Gjh6Kdkx5oG8mqYv5Na7faqqUfqlcUB16mRQTn3vk0QTKMIW/exec';
-
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwLQa4UcYU87VlVf-V8IUoC_3NdHF91ATO4iCKRj46kRJmw6A5Q-zhX-ZKL6_lsyA7I/exec'
         
         // ============================================================
         // UTILITY FUNCTIONS
@@ -947,6 +946,37 @@
                 console.log('[PROD-CHECK] Attempting Google Sheets submission...');
                 console.log('[PROD-CHECK] Using no-cors mode - cannot verify actual success');
                 console.log('[PROD-CHECK] Data being sent:', data.length, 'records');
+            };
+
+            // TEST: Test the Apps Script connection
+            const testConnection = async () => {
+                if (APPS_SCRIPT_URL === 'YOUR_APPS_SCRIPT_URL_HERE') {
+                    alert('Apps Script URL not configured');
+                    return;
+                }
+                
+                const testUrl = APPS_SCRIPT_URL + '?action=test';
+                console.log('[TEST] Testing connection to:', testUrl);
+                
+                try {
+                    const response = await fetch(testUrl);
+                    console.log('[TEST] Response status:', response.status);
+                    console.log('[TEST] Response type:', response.type);
+                    
+                    const text = await response.text();
+                    console.log('[TEST] Response text:', text);
+                    
+                    try {
+                        const json = JSON.parse(text);
+                        console.log('[TEST] Response JSON:', json);
+                        alert('Connection OK! Sheet: ' + json.sheetName);
+                    } catch (e) {
+                        alert('Response received but not JSON: ' + text);
+                    }
+                } catch (error) {
+                    console.error('[TEST] Error:', error);
+                    alert('Connection failed: ' + error.message);
+                }
             };
 
             const endDistanceRef = useRef(null);
@@ -1732,6 +1762,9 @@
                                     </button>
                                     <button className="btn btn-secondary" onClick={downloadExcel}>
                                         Download Excel
+                                    </button>
+                                    <button className="btn btn-outline" onClick={testConnection}>
+                                        Test Connection
                                     </button>
                                 </div>
                             )}
