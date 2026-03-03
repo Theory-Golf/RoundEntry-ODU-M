@@ -9,3 +9,6 @@ Shot Data
 
 App Scripts URL
 https://script.google.com/macros/s/AKfycbydum82VpgH-ZvxXMiZwtFq1nJiZx5vK2mnQSfI2FIzM1hbComsTE-tWQSt8q800Ifz/exec
+
+Updated - Google code
+https://script.google.com/macros/s/AKfycbyVNlxvnZg2ii7ouoV7Gjh6Kdkx5oG8mqYv5Na7faqqUfqlcUB16mRQTn3vk0QTKMIW/exec
