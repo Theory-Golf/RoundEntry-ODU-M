@@ -982,37 +982,6 @@
                 console.log('[PROD-CHECK] Data being sent:', data.length, 'records');
             };
 
-            // TEST: Test the Apps Script connection
-            const testConnection = async () => {
-                if (APPS_SCRIPT_URL === 'YOUR_APPS_SCRIPT_URL_HERE') {
-                    alert('Apps Script URL not configured');
-                    return;
-                }
-                
-                const testUrl = APPS_SCRIPT_URL + '?action=test';
-                console.log('[TEST] Testing connection to:', testUrl);
-                
-                try {
-                    const response = await fetch(testUrl);
-                    console.log('[TEST] Response status:', response.status);
-                    console.log('[TEST] Response type:', response.type);
-                    
-                    const text = await response.text();
-                    console.log('[TEST] Response text:', text);
-                    
-                    try {
-                        const json = JSON.parse(text);
-                        console.log('[TEST] Response JSON:', json);
-                        alert('Connection OK! Sheet: ' + json.sheetName);
-                    } catch (e) {
-                        alert('Response received but not JSON: ' + text);
-                    }
-                } catch (error) {
-                    console.error('[TEST] Error:', error);
-                    alert('Connection failed: ' + error.message);
-                }
-            };
-
             const endDistanceRef = useRef(null);
             const startDistanceRef = useRef(null);
             const didNotHitDriverRef = useRef(null);
@@ -1796,9 +1765,6 @@
                                     </button>
                                     <button className="btn btn-secondary" onClick={downloadExcel}>
                                         Download Excel
-                                    </button>
-                                    <button className="btn btn-outline" onClick={testConnection}>
-                                        Test Connection
                                     </button>
                                 </div>
                             )}

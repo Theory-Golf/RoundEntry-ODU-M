@@ -65,21 +65,6 @@ function doPost(e) {
 }
 
 function doGet(e) {
-  // Test endpoint for debugging - returns status info
-  const params = e.parameter;
-  
-  if (params.action === 'test') {
-    return ContentService
-      .createTextOutput(JSON.stringify({ 
-        status: 'OK', 
-        message: 'Apps Script is running',
-        timestamp: new Date().toISOString(),
-        spreadsheetId: SPREADSHEET_ID,
-        sheetName: SHEET_NAME
-      }))
-      .setMimeType(ContentService.MimeType.JSON);
-  }
-  
   return ContentService
     .createTextOutput('Golf Shot Tracker - Google Sheets Integration is running')
     .setMimeType(ContentService.MimeType.TEXT);
