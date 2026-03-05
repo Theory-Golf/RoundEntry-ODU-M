@@ -1023,7 +1023,7 @@
                 setFocusTarget('startDistance');
             };
 
-            const addShot = (skipPuttValidation = false) => {
+            const addShot = (skipPuttValidation = false, puttResultOverride = null) => {
                 // Debounce to prevent double-submission
                 if (isProcessingShot) return;
                 setIsProcessingShot(true);
@@ -1049,7 +1049,10 @@
                     currentShot.startLie === 'Green' && 
                     parseFloat(currentShot.startDistance) > 10;
                 
-                if (isFirstPuttOver10ft && !skipPuttValidation && !currentShot.puttResult) {
+                // Use override if provided, otherwise use state value
+                const puttResult = puttResultOverride !== null ? puttResultOverride : currentShot.puttResult;
+                
+                if (isFirstPuttOver10ft && !skipPuttValidation && !puttResult) {
                     alert('Please select Short or Long for your first putt');
                     setIsProcessingShot(false);
                     return;
@@ -1065,7 +1068,7 @@
                     endLie: currentShot.endLie,
                     penalty: currentShot.penalty,
                     didNotHitDriver: currentShot.didNotHitDriver,
-                    puttResult: currentShot.puttResult
+                    puttResult: puttResult
                 });
                 setHoles(newHoles);
 
@@ -1577,15 +1580,13 @@
                                                 type="button"
                                                 className={`putt-result-btn ${currentShot.puttResult === 'Short' ? 'selected' : ''}`}
                                                 onClick={() => {
-                                                    setCurrentShot({...currentShot, puttResult: currentShot.puttResult === 'Short' ? '' : 'Short'});
-                                                    // Auto-submit after selecting - skip validation since user already selected
-                                                    setTimeout(() => addShot(true), 50);
+                                                    // Pass 'Short' directly to addShot to avoid React state timing issue
+                                                    addShot(true, 'Short');
                                                 }}
                                                 onKeyDown={(e) => {
                                                     if (e.key === 'Enter') {
                                                         e.preventDefault();
-                                                        setCurrentShot({...currentShot, puttResult: currentShot.puttResult === 'Short' ? '' : 'Short'});
-                                                        setTimeout(() => addShot(true), 50);
+                                                        addShot(true, 'Short');
                                                     }
                                                 }}
                                             >
@@ -1595,15 +1596,13 @@
                                                 type="button"
                                                 className={`putt-result-btn ${currentShot.puttResult === 'Long' ? 'selected' : ''}`}
                                                 onClick={() => {
-                                                    setCurrentShot({...currentShot, puttResult: currentShot.puttResult === 'Long' ? '' : 'Long'});
-                                                    // Auto-submit after selecting - skip validation since user already selected
-                                                    setTimeout(() => addShot(true), 50);
+                                                    // Pass 'Long' directly to addShot to avoid React state timing issue
+                                                    addShot(true, 'Long');
                                                 }}
                                                 onKeyDown={(e) => {
                                                     if (e.key === 'Enter') {
                                                         e.preventDefault();
-                                                        setCurrentShot({...currentShot, puttResult: currentShot.puttResult === 'Long' ? '' : 'Long'});
-                                                        setTimeout(() => addShot(true), 50);
+                                                        addShot(true, 'Long');
                                                     }
                                                 }}
                                             >
